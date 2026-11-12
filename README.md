@@ -9,6 +9,8 @@
 
 Grave a tela falando e apontando. O Ouvecena entrega cada fala junto com o quadro que estava na tela naquele momento.
 
+<img src="docs/marca/ouvecena-demo.gif" width="800" alt="Cada fala do vídeo ao lado do quadro que estava na tela naquele momento">
+
 </div>
 
 ## Por que existe
