@@ -5,21 +5,22 @@
   <img src="docs/marca/ouvecena-claro.svg" width="340" alt="Ouvecena">
 </picture>
 
-### Vídeo vira texto com tempo e imagem, para a IA entender, de graça e sem internet
+### Vídeo para texto com tempo e imagem, de graça e sem internet
 
-Grave a tela falando e apontando. O Ouvecena entrega cada fala junto com o quadro que estava na tela naquele momento.
+Grave a tela falando e apontando. A IA recebe cada fala junto com o quadro que estava na tela naquele momento.
 
-<img src="docs/marca/ouvecena-demo.gif" width="800" alt="Cada fala do vídeo ao lado do quadro que estava na tela naquele momento">
+<a href="#instalar"><img src="https://img.shields.io/badge/Instalar_no_Mac-FF5A1F?style=for-the-badge&logo=apple&logoColor=white" alt="Instalar no Mac" height="44"></a>
+
+[![Estrelas](https://img.shields.io/github/stars/LimaJoota/ouvecena?style=flat&label=estrelas&labelColor=15171A&color=FF5A1F)](https://github.com/LimaJoota/ouvecena/stargazers)
+[![Licença MIT](https://img.shields.io/badge/licen%C3%A7a-MIT-3A3F45?labelColor=15171A)](LICENSE)
+
+<img src="docs/marca/ouvecena-demo.gif" width="800" alt="O Ouvecena em ação: cada fala do vídeo ao lado do quadro que estava na tela">
 
 </div>
 
-## Por que existe
-
-A IA não ouve vídeo. Se você grava a tela explicando uma mudança ("sobe isso aqui, tira aquilo"), ela perde o "isso" e o "aqui". O Ouvecena resolve: transcreve a fala em português com início e fim, tira um quadro no meio de cada trecho e junta os dois num arquivo que a IA lê.
-
 ## Instalar
 
-Precisa de um Mac com chip Apple e do [Homebrew](https://brew.sh).
+Precisa de um Mac com chip Apple (M1 ou mais novo) e do [Homebrew](https://brew.sh).
 
 ```bash
 git clone https://github.com/LimaJoota/ouvecena.git
@@ -27,28 +28,48 @@ cd ouvecena
 ./instalar.sh
 ```
 
-O script instala o `whisper-cpp` e o `ffmpeg` e baixa o modelo de voz (574 MB). Tudo roda no seu Mac e nenhum áudio sai dele.
+O script instala o `whisper-cpp` e o `ffmpeg` e baixa o modelo de voz (574 MB).
 
 ## Usar
 
 ```bash
-./ouvecena video.mov                # texto com [início --> fim]
-./ouvecena video.mov --contexto     # + um quadro por fala (contexto.md e contexto.html)
-./ouvecena video.mov --quadros 5    # + folha de contato, um quadro a cada 5 s
-./ouvecena video.mov --contexto --corte "iw:ih*0.36:0:ih*0.32"   # corta faixas sobrando (W:H:X:Y do ffmpeg)
+./ouvecena video.mov --contexto
 ```
 
-Mande o `contexto.md` e as imagens para a IA. Cada trecho vem assim:
+Saem um `contexto.md` e um quadro por fala. Mande os dois para a IA.
 
-```
-## [00:08.68 → 00:14.52]
-![quadro](q02.jpg)
+## O que ele faz
 
-Como funciona, tu mantém esse daqui, só que você vai subir tudo isso daqui.
-```
+- **Sem internet.** A voz vira texto no seu Mac e nenhum áudio sai dele.
+- **A IA entende o "isso aqui".** Cada fala vem com o quadro do momento, então "sobe isso" deixa de ser mistério.
+- **Tempo em tudo.** Cada trecho tem início e fim.
+- **Folha de contato.** `--quadros 5` junta um quadro a cada 5 segundos numa imagem só.
+- **Corte de faixas.** `--corte "iw:ih*0.36:0:ih*0.32"` tira as barras sobrando da gravação do celular.
 
-## Limites
+<table>
+  <tr>
+    <td><img src="docs/telas/titulo.jpg" alt="Quadro do trecho: Aqui em cima fica o título da página"></td>
+    <td><img src="docs/telas/precos.jpg" alt="Quadro do trecho: Tira essa tabela e coloca os depoimentos no lugar"></td>
+    <td><img src="docs/telas/botao.jpg" alt="Quadro do trecho: deixa só este botão, bem grande"></td>
+  </tr>
+  <tr>
+    <td align="center"><sub>"Aqui em cima fica o título"</sub></td>
+    <td align="center"><sub>"Tira essa tabela"</sub></td>
+    <td align="center"><sub>"Deixa só este botão"</sub></td>
+  </tr>
+</table>
 
-Hoje só roda no Mac e o idioma fixo é português do Brasil. O corte de faixas é manual.
+## Gostou?
 
-Feito com [whisper.cpp](https://github.com/ggml-org/whisper.cpp) e [ffmpeg](https://ffmpeg.org). Licença MIT.
+Deixe uma estrela. Ela ajuda mais gente a achar o Ouvecena.
+
+<a href="https://star-history.com/#LimaJoota/ouvecena&Date">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=LimaJoota/ouvecena&type=Date&theme=dark">
+    <img src="https://api.star-history.com/svg?repos=LimaJoota/ouvecena&type=Date" width="520" alt="Estrelas do Ouvecena ao longo do tempo">
+  </picture>
+</a>
+
+## Créditos
+
+Feito com [whisper.cpp](https://github.com/ggml-org/whisper.cpp) e [ffmpeg](https://ffmpeg.org). Licença [MIT](LICENSE). Hoje só roda no Mac e o idioma é português do Brasil.
