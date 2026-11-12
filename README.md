@@ -32,11 +32,17 @@ O script instala o `whisper-cpp` e o `ffmpeg` e baixa o modelo de voz (574 MB).
 
 ## Usar
 
+Abra o app (`./app.py`, ou crie um atalho com o `Ouvecena.app` descrito abaixo). Uma página abre no navegador. Solte o vídeo nela.
+
+No fim, clique em **Copiar texto para a IA**, cole no chat e arraste as imagens da pasta que **Abrir pasta com os quadros** mostra.
+
+Prefere o terminal?
+
 ```bash
 ./ouvecena video.mov --contexto
 ```
 
-Saem um `contexto.md` e um quadro por fala. Mande os dois para a IA.
+Saem um `contexto.md` e um quadro por fala. Tudo fica em `~/Ouvecena/`.
 
 ## O que ele faz
 
