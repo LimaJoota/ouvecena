@@ -1,10 +1,10 @@
 #!/bin/bash
-# Uso: transcrever <video|audio> [--quadros N] [--contexto] [--corte W:H:X:Y] [--saida DIR]
+# Uso: ouvecena <video|audio> [--quadros N] [--contexto] [--corte W:H:X:Y] [--saida DIR]
 set -e
 D="$(cd "$(dirname "$0")" && pwd)"; Q=0; C=0; CR=""; OUT="$D/saida"; IN=""
 while [ $# -gt 0 ]; do case "$1" in
   --quadros) Q="$2"; shift 2;; --contexto) C=1; shift;; --corte) CR="$2"; shift 2;; --saida) OUT="$2"; shift 2;; *) IN="$1"; shift;; esac; done
-[ -f "$IN" ] || { echo "uso: transcrever <arquivo> [--quadros N] [--saida DIR]"; exit 1; }
+[ -f "$IN" ] || { echo "uso: ouvecena <arquivo> [--quadros N] [--saida DIR]"; exit 1; }
 FF=/opt/homebrew/bin/ffmpeg; N="$(basename "${IN%.*}")"; mkdir -p "$OUT"; T="$(mktemp -d)"
 $FF -v error -y -i "$IN" -vn -ar 16000 -ac 1 "$T/a.wav"
 whisper-cli -m "$D/modelos/ggml-large-v3-turbo-q5_0.bin" -l pt -f "$T/a.wav" -of "$T/o" -oj -np >/dev/null 2>&1
