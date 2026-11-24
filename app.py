@@ -59,7 +59,7 @@ function mostrar(s){
   const prompt='Esta é a transcrição de um vídeo de tela, com o tempo de cada fala. Anexei um quadro por trecho, na mesma ordem (quadro 1, 2, 3…), mostrando o que estava na tela naquele momento. Entenda o que a pessoa aponta quando diz "isso", "aqui" e "esse", e faça o que ela pede.\\n\\n'+txt;
   r.innerHTML='<div class=acoes><button id=cp>Copiar texto para a IA</button><button class=g id=ab>Abrir pasta com os quadros</button></div><p class=s>Cole o texto no chat da IA e arraste as imagens da pasta junto, na ordem.</p>'+
     s.segs.map((g,i)=>`<div class=seg><img src="${g.quadro}" alt="Quadro ${i+1}"><div><b>${g.de} → ${g.ate}</b><br>${g.texto.replace(/</g,'&lt;')}</div></div>`).join('');
-  $('#cp').onclick=async e=>{await navigator.clipboard.writeText(prompt);e.target.textContent='Copiado!'};
+  $('#cp').onclick=async e=>{try{await navigator.clipboard.writeText(prompt)}catch(_){const t=document.createElement('textarea');t.value=prompt;document.body.appendChild(t);t.select();document.execCommand('copy');t.remove()}e.target.textContent='Copiado!'};
   $('#ab').onclick=()=>fetch('/abrir/'+s.id,{method:'POST'});
 }
 </script>"""
@@ -86,7 +86,6 @@ class H(BaseHTTPRequestHandler):
         if self.path == "/enviar":
             jid = time.strftime("%Y-%m-%d-%H%M%S") + "-" + uuid.uuid4().hex[:4]
             pasta = SAIDA / jid; pasta.mkdir(parents=True)
-            ext = pathlib.Path(self.headers.get("X-Nome", "v.mov")).suffix or ".mov"
             from urllib.parse import unquote
             ext = pathlib.Path(unquote(self.headers.get("X-Nome", "v.mov"))).suffix or ".mov"
             v = pasta / f"video{ext}"; n = int(self.headers["Content-Length"])
@@ -96,7 +95,7 @@ class H(BaseHTTPRequestHandler):
             threading.Thread(target=processar, args=(jid, v), daemon=True).start()
             self._j({"id": jid})
         elif self.path.startswith("/abrir/") and ".." not in self.path:
-            subprocess.run(["open", str(SAIDA / self.path[7:] / "video")]); self._j({})
+            subprocess.run(["open", "-g", str(SAIDA / self.path[7:] / "video")]); self._j({})
         else: self.send_error(404)
     def log_message(self, *a): pass
 

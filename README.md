@@ -1,9 +1,6 @@
 <div align="center">
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/marca/ouvecena-escuro.svg">
-  <img src="docs/marca/ouvecena-claro.svg" width="340" alt="Ouvecena">
-</picture>
+<img src="docs/marca/ouvecena-claro.svg" width="340" alt="Ouvecena">
 
 ### Vídeo para texto com tempo e imagem, de graça e sem internet
 
