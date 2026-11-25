@@ -47,7 +47,7 @@ Saem um `contexto.md` e um quadro por fala. Tudo fica em `~/Ouvecena/`.
 - **A IA entende o "isso aqui".** Cada fala vem com o quadro do momento, então "sobe isso" deixa de ser mistério.
 - **Tempo em tudo.** Cada trecho tem início e fim.
 - **Folha de contato.** `--quadros 5` junta um quadro a cada 5 segundos numa imagem só.
-- **Corte de faixas.** `--corte "iw:ih*0.36:0:ih*0.32"` tira as barras sobrando da gravação do celular.
+- **Corte de faixas.** Faixa lisa de qualquer cor nas bordas (preta, marrom, cinza) sai sozinha dos quadros. Para forçar um corte, use `--corte "iw:ih*0.36:0:ih*0.32"`.
 
 <table>
   <tr>
